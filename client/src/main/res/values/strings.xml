@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Client</string>
+
+    <string name="hello_text">Click Me!</string>
 </resources>

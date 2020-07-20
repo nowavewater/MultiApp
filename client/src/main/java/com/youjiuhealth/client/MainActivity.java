@@ -78,20 +78,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // Bind to the service
         try {
-            // Bind to the service
-            String activityToStart = "com.youjiuhealth.multiapp.MessengerService";
-            Class<?> clazz = Class.forName(activityToStart);
-            Intent intent = new Intent(this, clazz);
-            intent.setPackage("com.youjiuhealth.multiapp");
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("com.youjiuhealth.multiapp", "com.youjiuhealth.multiapp.MessengerService"));
             Timber.i("on created intent");
-            bindService(intent, mConnection,
-                    Context.BIND_AUTO_CREATE);
-            Timber.i("on bind message service");
-        } catch (ClassNotFoundException ignored) {
-            Timber.e("on class exception");
+            if (bindService(intent, mConnection, Context.BIND_AUTO_CREATE)){
+                Timber.i("on bind message service success");
+            } else {
+                Timber.i("on bind message service fail");
+            }
+        } catch (SecurityException e) {
+            Timber.e("on security exception %s", e.getMessage());
+            e.printStackTrace();
         }
-
     }
 
     @Override

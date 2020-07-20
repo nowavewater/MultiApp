@@ -51,7 +51,8 @@ public class MessengerService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Toast.makeText(getApplicationContext(), "binding", Toast.LENGTH_SHORT).show();
+        Timber.i("on service binding");
+       // Toast.makeText(getApplicationContext(), "binding", Toast.LENGTH_SHORT).show();
         mMessenger = new Messenger(new IncomingHandler(this));
         return mMessenger.getBinder();
     }
